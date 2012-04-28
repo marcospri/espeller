@@ -1,0 +1,3 @@
+HTML/JS to spell words phonetically in spanglish
+
+Try it on: "http://www.marcospri.com/spell.html":http://www.marcospri.com/spell.html
