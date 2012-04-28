@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html id="home" lang="es">
+<head>
+    <meta charset=utf-8 />
+    <title>Deletreador</title>
+
+   
+    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
+
+    <style type="text/css">
+        .spell_unit {
+            float: left;
+            width: 100px;
+            height: 80px;
+            margin-right: 10px;
+            margin-top: 5px;
+            text-align: center;
+            display: none;
+            padding: 10px;
+        }
+               
+        .spelling {
+            font-size: 14px; 
+            font-style:italic;
+        }
+        
+        .word{
+            font-weight: bold;
+        }
+        
+        .controls{
+            margin: 0 auto;
+            width: 500px; 
+            text-align: center;
+        }
+        
+        .title{
+            text-align: center;
+            width: 500px; 
+            margin: 0 auto;            
+            margin-top: 40px;  
+            margin-bottom: 20px;         
+        }       
+      
+        
+        .spelled{
+            margin-top: 20px;
+            width: 90%;
+            margin-right: 5%;
+            margin-left: 5%;
+            clear: both;            
+        }    
+
+     </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        
+        spelling_dict_nato = ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-Ray", "Yankee", "Zulu"];
+
+        spelling_dict_spanish = ["ei", "bi", "si", "di", "i", "ef", "gi", "eich", "ai", "yei", "kei", "el", "em", "en", "ou", "pi", "quiu", "ar", "es", "ti", "iu", "vi", "dabliu", "ex", "guay", "sed"];
+        
+        
+        //Animates ("fades-in") an array of elements sequentially 
+        function animate_array(elements){    
+            elements.eq(0).fadeIn("slow", function(){
+                animate_array(elements.slice(1));
+            });      
+        }
+        
+        //Displays the phonetic spelling for the word in the input box
+        function spell(){
+            var text = $("#phrase").val();  
+            
+            $("#spelled").html("");
+            
+            $.each(text.split(""), function(index, value){
+                letter_acii = value.toLowerCase().charCodeAt(0); 
+
+                $("#spelled").append("<div id='unit_"+ index +"' class='spell_unit well'></div>");            
+                
+                //97 = a in ASCII
+                word = spelling_dict_nato[letter_acii - 97];                
+                if(word != undefined){
+                    $("#unit_" + index).append("<div class='word label label-info'>" + word + "</div>")
+                }
+                
+                $("#unit_" + index).append("<h2>" + value.toUpperCase() + "</h2>");
+
+                
+                //97 = a in ASCII
+                spanish = spelling_dict_spanish[letter_acii - 97];
+                if(spanish != undefined){
+                    $("#unit_" + index).append("<div class='spelling'>" + spanish + "</div>");
+                }
+            });    
+            $("#phrase").val("");      
+            animate_array($(".spell_unit"));      
+        }    
+      
+        $(function(){
+            //Set focus on input
+            $("#phrase").focus();
+
+            //Enter key on textfield fires the button
+            $("#phrase").keyup(function(event){
+                if(event.keyCode == 13){
+                    spell();
+                }
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="title"><h1>¿Qué quieres deletrear?</h1></div>
+    <div class="controls">
+        <div class="well form-search">
+            <input type="text"  id="phrase"/>
+            <input type="button" onclick="spell()" id="spell_button" class="btn" value="Deletrear"/>
+        </div>
+    </div>
+    
+    <div id="spelled" class="spelled">
+        
+    </div>
+</body>
+</html>
