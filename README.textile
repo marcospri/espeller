@@ -1,3 +1,7 @@
 HTML/JS to spell words phonetically in spanglish
 
-Try it on: "http://www.marcospri.com/spell.html":http://www.marcospri.com/spell.html
+I did this 4 years ago (2012) with jquery & bootstrap and it's not hip enough for the modern world.
+
+Redone now (2016) with Elm and modernize.
+
+Available on: http://marcospri.github.io/espeller/
